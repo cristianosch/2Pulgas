@@ -1,0 +1,58 @@
+{% load static %}
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 p-0">
+        <!-- Swiper -->
+
+        <div class="slider">
+          <div class="swiper-container swiper-main-slider">
+            <div class="swiper-wrapper">
+              {% for item in header_random %}
+              <div class="swiper-slide">
+                {% if item.image %}
+                <div class="header-img position-relative">
+                  <img
+                    src="{{item.image.url}}"
+                    height="400"
+                    width="900"
+                    class="img-fluid"
+                    alt=""
+                  />
+                </div>
+                {% endif %}
+                <div class="bg-overlay"></div>
+                <div class="home-contain text-center">
+                  <div class="position-relative">
+                    <h5 class="home-head text-white text-uppercase mb-0">
+                      <a href="{% url 'post_detail' id=item.id slug=item.slug %}" class="text-white">{{item.category}}</a>
+                    </h5>
+                  </div>
+                  <h3 class="mt-3 py-1">
+                    <a href="{% url 'post_detail' id=item.id slug=item.slug %}"  class="text-white">
+                      {{item.title}}
+                    </a>
+                  </h3>
+                  <a href="" class="post-meta">
+                    <span
+                      class="text-white text-uppercase f-14 ms-3 letter-spacing-1"
+                      ><i class="mdi mdi-account me-2"></i>{{item.user}}</span
+                    >
+                    <span
+                      class="text-white text-uppercase f-14 ms-3 letter-spacing-1"
+                      ><i class="mdi mdi-calendar me-2"></i>
+                      {{item.created_date|date:"d/m/Y"}}</span
+                    >
+                  </a>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

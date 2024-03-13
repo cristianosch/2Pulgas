@@ -1,0 +1,30 @@
+/* Template Name: 2 Pulgas
+   Author: Cristiano Schroeder
+   Version: 1.0.0
+   File Description: Main Css file of the template
+*/
+
+/****************************************\
+
+01.general
+02.helper
+03.authentication
+04.helper
+05.menu
+06.home
+06.contact
+08.footer
+09.responsive
+
+*****************************************/
+
+@import "variables";
+@import "general";
+@import "components";
+@import "helper";
+@import "menu";
+@import "home";
+@import "contact";
+@import "footer";
+@import "switcher";
+@import "responsive";

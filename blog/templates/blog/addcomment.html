@@ -1,0 +1,40 @@
+<!-- Seção para exibir os comentários -->
+<h2>Comments</h2>
+{% for comment in comments %}
+    <p>{{ comment.user.username }} says: {{ comment.text }}</p>
+{% endfor %}
+
+<!-- Formulário para adicionar comentários (se o usuário estiver autenticado) -->
+{% if request.user.is_authenticated %}
+   
+    <form method="post" action="{% url 'addcomment' id=article.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class = "btn btn-warning mb-3" type="submit">Add Comment</button>
+    </form>
+
+    <!-- Se houver comentários -->
+    {% if total > 0 %}
+        <h2>{{ total }} comments</h2>
+        {% for item in comments %}
+            <ul>
+                <li>
+                    <div class="author-thumb mt-5">
+                        <img src="assets/images/comment-author-01.jpg" alt="">
+                    </div>
+                    <div class="right-content">
+                        <h4>{{ item.user.username }}<span>{{ item.created_at|date:"d/m/Y" }}</span></h4>
+                        <p>{{ item.text }}</p>
+                    </div>
+                </li>
+            </ul>
+        {% endfor %}
+    <!-- Se não houver comentários -->
+    {% else %}
+        <h4>Be the first to comment this post</h4>
+    {% endif %}
+
+{% else %}
+    <p>Login in the page to add comment</p>
+    <button class = "btn btn-warning mb-3" url="">Login</button>
+{% endif %}

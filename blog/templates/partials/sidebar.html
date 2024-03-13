@@ -1,0 +1,290 @@
+{% load static %}
+<div class="col-lg-4">
+  <!-- ABOUT ME -->
+  <div class="sidebar">
+    <div class="left-sidebar-title">
+      <h4 class="mb-0">
+        <span>About Me</span>
+      </h4>
+    </div>
+    <div class="leftbar-content px-3 text-center">
+      <div class="left-about-image">
+        <img
+          src="{% static 'images/about-us.jpg' %}"
+          class="img-fluid rounded-circle"
+          alt=""
+        />
+      </div>
+      <p class="mt-3">
+        Hye, We are Cristiano and Yusrina Walker residing in this beautiful journey. 
+        We created this blog to report our travel experiences around the world.
+      </p>      
+
+      <div class="mt-2">
+        <a href="#" class="text-primary read-more"
+          >Read more <i class="mdi mdi-arrow-right ms-1"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+  <!-- ABOUT ME -->
+
+  <!-- SOCIAL LINKS -->
+  <div class="sidebar mt-5">
+    <div class="leftbar-content">
+      <div class="left-sidebar-title">
+        <h4 class="mb-0">
+          <span>Social Links</span>
+        </h4>
+      </div>
+      <ul class="list-inline links-social text-center mb-0">
+        <li class="list-inline-item">
+          <a href="#" class="rounded-circle">
+            <i class="mdi mdi-facebook text-blue"></i>
+          </a>
+        </li>
+
+        <li class="list-inline-item">
+          <a href="#" class="rounded-circle">
+            <i class="mdi mdi-twitter text-info"></i>
+          </a>
+        </li>
+
+        <li class="list-inline-item">
+          <a href="#" class="rounded-circle">
+            <i class="mdi mdi-google-plus text-danger"></i>
+          </a>
+        </li>
+
+        <li class="list-inline-item">
+          <a href="#" class="rounded-circle">
+            <i class="mdi mdi-linkedin text-info"></i>
+          </a>
+        </li>
+
+        <li class="list-inline-item">
+          <a href="#" class="rounded-circle">
+            <i class="mdi mdi-vimeo text-primary"></i>
+          </a>
+        </li>
+
+        <li class="list-inline-item">
+          <a href="#" class="rounded-circle">
+            <i class="mdi mdi-youtube text-danger"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- SOCIAL LINKS -->
+
+  <!-- LETTEST BLOG -->
+  <div class="sidebar mt-5">
+    <div class="leftbar-content">
+      <div class="left-sidebar-title">
+        <h4 class="mb-0">
+          <span>Lettest Blog</span>
+        </h4>
+      </div>
+      {% for item in list_post %}
+
+      <div class="d-flex pb-3">
+        {% if item.image %}
+        <div class="leftbar-blog">
+          <img src="{{item.image.url}}" class="rounded" alt="img-missing" />
+        </div>
+        {% endif %}
+        <div class="flex-1 ms-3">
+          <div class="latest-post">
+            <h5 class="f-15">
+              <a href="{% url 'post_detail' id=item.id slug=item.slug %}" class="text-dark line-height_1_6"
+                >{{item.title}}</a
+              >
+            </h5>
+            <div class="post-meta">
+              <span
+                ><i class="mdi mdi-calendar align-middle me-1"></i>{{item.created_date}}</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+     
+    </div>
+  </div>
+  <!-- LETTEST BLOG -->
+
+  <!-- TAGS -->
+  <div class="sidebar mt-5">
+    <div class="leftbar-content">
+      <div class="left-sidebar-title">
+        <h4 class="mb-0">
+          <span>Tags</span>
+        </h4>
+      </div>
+      <div class="tags">
+        <a href="#">Advertisement</a>
+        <a href="#">Blog</a>
+        <a href="#">Fashion</a>
+        <a href="#">Inspiration</a>
+        <a href="#">Smart Quotes</a>
+        <a href="#">Conceptual</a>
+        <a href="#">Artistry</a>
+        <a href="#">Unique</a>
+      </div>
+    </div>
+  </div>
+  <!-- TAGS -->
+
+  <!-- INSTAGRAM -->
+  <div class="sidebar mt-5 d-none d-lg-block">
+    <div class="leftbar-content">
+      <div class="left-sidebar-title">
+        <h4 class="mb-0">
+          <span>Instagram</span>
+        </h4>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-4">
+          <div>
+            <p class="mb-0 f-18 text-muted">3578</p>
+            <h6 class="mb-0 mt-2">Follows</h6>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <div>
+            <p class="mb-0 f-18 text-muted">62</p>
+            <h6 class="mb-0 mt-2">Posts</h6>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <div>
+            <p class="mb-0 f-18 text-muted">4512</p>
+            <h6 class="mb-0 mt-2">Following</h6>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-lg-4 col-md-4">
+          <div class="insta-fam">
+            <img
+              src="images/instagram/img-1.jpg"
+              class="img-fluid rounded"
+              alt="img-missing"
+            />
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <div class="insta-fam">
+            <img
+              src="images/instagram/img-2.jpg"
+              class="img-fluid rounded"
+              alt="img-missing"
+            />
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <div class="insta-fam">
+            <img
+              src="images/instagram/img-3.jpg"
+              class="img-fluid rounded"
+              alt="img-missing"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-lg-4 col-md-4">
+          <div class="insta-fam">
+            <img
+              src="images/instagram/img-4.jpg"
+              class="mx-auto d-block img-fluid"
+              alt="img-missing"
+            />
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <div class="insta-fam">
+            <img
+              src="images/instagram/img-5.jpg"
+              class="mx-auto d-block img-fluid"
+              alt="img-missing"
+            />
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <div class="insta-fam">
+            <img
+              src="images/instagram/img-6.jpg"
+              class="mx-auto d-block img-fluid"
+              alt="img-missing"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- INSTAGRAM -->
+
+  <!-- SUBSCRIBE -->
+  <div class="sidebar mt-5">
+    <div class="leftbar-content">
+      <div class="left-sidebar-title">
+        <h4 class="mb-0">
+          <span>Subscribe</span>
+        </h4>
+      </div>
+      <div class="bg-light p-4 rounded">
+        <p>Get the latest news, discounts and offers.</p>
+        <div class="search-form">
+          <form action="#">
+            <input placeholder="Enter Email Address" type="text" />
+            <i class="mdi mdi-email f-20"></i>
+            <button type="submit" class="btn btn-primary w-100 mt-3">
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- SUBSCRIBE -->
+
+  <!-- CATEGORIES -->
+  <div class="sidebar mt-5">
+    <div class="leftbar-content">
+      <div class="left-sidebar-title">
+        <h4 class="mb-0">
+          <span>Categories</span>
+        </h4>
+      </div>
+      <ul class="list-unstyled mb-0">
+        <li class="border-bottom pb-3">
+          <a href="" class="text-muted">Journey</a
+          ><span class="f-13 float-end text-muted">(40)</span>
+        </li>
+
+        <li class="border-bottom py-3">
+          <a href="" class="text-muted">Photography</a
+          ><span class="f-13 float-end text-muted">(11)</span>
+        </li>
+
+        <li class="pt-3">
+          <a href="" class="text-muted">Lifestyle</a
+          ><span class="f-13 float-end text-muted">(09)</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- CATAGORIES -->
+</div>

@@ -1,0 +1,238 @@
+{% extends "base/base.html" %} 
+{% load static %} 
+{% load embed_video_tags %}
+
+
+{% block content %}
+
+<!-- LOGO START -->
+
+    <div class="offcanvas offcanvas-top search-offcanvas" tabindex="-1" id="offcanvasTop">
+        <div class="p-3">
+            <a href=""> <i class="mdi mdi-close text-white float-end f-24" data-bs-dismiss="offcanvas" aria-label="Close"></i></a>
+        </div>
+        <div class="offcanvas-body">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="search-form mt-5">
+                        <form action="#">
+                            <input type="text" placeholder="Search the site...">
+                            <button type="submit" class="btn btn-primary btn-rounded">Search Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="logo-box d-none d-xl-block">
+        <div class="container">
+            <div class="topbar-logo text-center">
+                <a href="/" class="logo">
+                    <img src="{% static 'images/logo-dark.png' %}" alt="" class="logo-light" height="70" />
+                </a>
+            </div>
+        </div>
+    </div>
+<!-- LOGO END -->
+
+    <!-- START TITLE -->
+    <section class="section" style="background: url{% static 'images/header.1.jpg' %} center center;">
+        
+        <div class="bg-overlay-header"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="title-heading text-center">
+                        <h2 class="home-title text-capitalize"><a href="">{{article.title}}</a></h2>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END TITLE -->
+
+
+
+
+     <!-- START BLOG-POST -->
+     <section class="section">
+        <div class="container">
+           <div class="row">
+            <div class="col-lg-8">                
+                <div class="post-box">
+                    {% if article.image %}
+                    <div class="post-img">
+                        <img src="{{article.image.url}}" class="img-fluid" alt="">
+                    </div>
+                    {% endif %}
+                    <div class="audio-vidio-post pt-4">
+                        <div class="post-meta">
+                            <span><i class="mdi mdi-account me-2"></i><a href="#">{{article.user}}</a></span>
+                            <span><i class="mdi mdi-calendar me-2"></i>{{article.created_date}}</span>
+                        </div>
+                        <h3 class="mt-3 py-1">
+                            <a href=""class="text-black">
+                                {{article.title}}
+                            </a>
+                        </h3>
+                        <p class="mt-3">{{article.content}}</p> 
+                    </div>
+<!-- +++++++++++++++++++ POST DETAIL  ++++++++++++++++++++++++-->
+                {% for item in post %}                 
+                    <div class="audio-vidio-post pt-4">
+
+                        <h3 class="mt-3 py-1">
+                            <a href=""class="text-black">
+                                {{item.title}}
+                            </a>
+                        </h3>
+                        <p class="mt-3">{{item.content}}</p> 
+                    </div>
+                    {% if item.image %}
+                    <div class="post-img">
+                        <img src="{{item.image.url}}" class="img-fluid" alt="">
+                    </div>
+                    {% endif %}
+                 
+                     <div class="audio-vidio-post pt-4">
+                    <!-- video -->
+                    {% if item.video  %}
+                   
+                        <div class="video d-flex justify-content-center mb-3">
+                       
+                            <div id="player-overlay">
+                                <video controls>
+                                    <source src="{{item.video.url}}" type="video/mp4">                  
+                                </video>
+                            </div>                        
+                        </div>    
+                   
+                    {% endif %}  
+
+                    <!-- Youtube video --> 
+
+                    <div class="video d-flex justify-content-center mb-3">
+                        {% video item.link_video 'small' %}
+                    </div> 
+                </div>
+                {% endfor %}     
+<!--+++++++++++++++++++++ END OF POST ++++++++++++++++++-->
+
+<!-- ************* teste de commentario starts **********-->
+
+{% include 'blog/addcomment.html' %}
+
+<!-- *************  teste de comentario stops ***********-->
+
+                    <div class="mt-5">
+                        <h5 class="f-18">2 Comments</h5>
+
+                        <div class="blog-comments-area mt-4 pt-4">
+                            <div class="comment-section border-bottom pb-4">
+                                <div class="d-flex">
+                                    <img src="images/hero.jpg" class="rounded-circle" style="height: 70px;" alt="img-missing">
+                                    <div class="flex-1 ms-4">
+                                        <div class="post-meta float-end">
+                                            <span><i class="mdi mdi-calendar me-2"></i>Feb 13, 2021</span>
+                                        </div>
+                                        <h5 class="f-16">Natasha Andrews</h5>
+                                        <p class="text-muted">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
+                                        <div class="mt-4">
+                                            <a href="" class="btn btn-primary btn-sm"><i class="mdi mdi-reply me-1"></i> Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="comment-section border-bottom py-4">
+                                <div class="d-flex">
+                                    <img src="images/hero.jpg" class="rounded-circle" style="height: 70px;" alt="img-missing">
+                                    <div class="flex-1 ms-4">
+                                        <div class="post-meta float-end">
+                                            <span><i class="mdi mdi-calendar me-2"></i>Feb 13, 2021</span>
+                                        </div>
+                                        <h5 class="f-16">Natasha Andrews</h5>
+                                        <p class="text-muted">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
+                                        <div class="mt-4">
+                                            <a href="" class="btn btn-primary btn-sm"><i class="mdi mdi-reply me-1"></i> Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="comment-section pt-4 ps-5 ms-4">
+                                <div class="d-flex">
+                                    <img src="images/left-about-img.jpg" class="rounded-circle" style="height: 70px;" alt="img-missing">
+                                    <div class="flex-1 ms-4">
+                                        <div class="post-meta float-end">
+                                            <span><i class="mdi mdi-calendar me-2"></i>Nov 28, 2021</span>
+                                        </div>
+                                        <h5 class="f-16">Pranav Gamewala</h5>
+                                        <p class="text-muted">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
+                                        <div class="mt-4">
+                                            <a href="" class="btn btn-primary btn-sm"><i class="mdi mdi-reply me-1"></i> Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div class="mt-5">
+                            <h5 class="f-18">Leave a reply</h5>
+
+                            <form class="custom-form ">
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group mt-4">
+                                            <input name="name" id="name" type="text" class="form-control" placeholder="Your Name*" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mt-4">
+                                            <input name="email" id="email" type="email" class="form-control" placeholder="Your Email*" required>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group mt-4">
+                                            <input name="subject" id="subject" type="text" class="form-control" placeholder="Your Subject*" >
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group mt-4">
+                                            <textarea name="comments" id="comments" rows="4" class="form-control" placeholder="Your message..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="row mt-4">
+                                    <div class="col-lg-12">
+                                        <input type="submit" id="submit" name="send" class="btn btn-primary" value="Post Comment">
+                                    </div>
+                                </div>
+                            </form>  
+                    </div>
+
+                </div>
+
+            </div>
+    <!-- SIDEBAR -->
+
+    {% include 'partials/sidebar.html' %}       
+
+    <!-- SIDEBAR -->
+
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+   
