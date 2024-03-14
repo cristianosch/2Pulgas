@@ -1,40 +1,111 @@
-<!-- Seção para exibir os comentários -->
+<!-- Section to display comments -->
 <h2>Comments</h2>
-{% for comment in comments %}
-    <p>{{ comment.user.username }} says: {{ comment.text }}</p>
-{% endfor %}
 
-<!-- Formulário para adicionar comentários (se o usuário estiver autenticado) -->
-{% if request.user.is_authenticated %}
-   
-    <form method="post" action="{% url 'addcomment' id=article.id %}">
+<!-- Form to add comments (if the user is authenticated) -->
+
+    <form method="POST" action="{% url 'addcomment' id=article.id %}">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button class = "btn btn-warning mb-3" type="submit">Add Comment</button>
+        {{ comment_form.as_p }} {# Use comment_form instead of form #}
+
+        <input type="hidden" name="post_id" value="{{ article.id }}">
+{% if request.user.is_authenticated %}
+        <button class="btn btn-primary" type="submit">Add Comment</button>
     </form>
 
-    <!-- Se houver comentários -->
-    {% if total > 0 %}
-        <h2>{{ total }} comments</h2>
-        {% for item in comments %}
-            <ul>
-                <li>
-                    <div class="author-thumb mt-5">
-                        <img src="assets/images/comment-author-01.jpg" alt="">
+    <!-- Display comments if there are any -->
+    {% if total > 0 %}       
+
+        <div class="mt-5">
+            <h5 class="f-18">{{ total }} Comments</h5>
+
+            <div class="blog-comments-area mt-4 pt-4">
+
+
+            <!--___________COMMENTS___________-->
+       
+            {% for comment in comments %}
+
+            <div class="comment-section border-bottom pb-4">
+                <div class="d-flex">
+                    <img src="images/hero.jpg" class="rounded-circle" style="height: 70px;" alt="img-missing">
+                    <div class="flex-1 ms-4">
+                        <div class="post-meta float-end">
+                            <span><i class="mdi mdi-calendar me-2"></i>{{ comment.created_at|date:"d/m/Y" }}</span>
+                        </div>
+                        <h5 class="f-16 text-capitalize">{{ comment.user.username }}</h5>
+                        <p class="text-muted text-capitalize">{{ comment.text }}</p>
+                        <div class="mt-4">
+
+                            <!--______________TESTE DO REPLY DENTRO DESSA SEÇÃO____________
+                            <a href="" class="btn btn-primary btn-sm"><i class="mdi mdi-reply me-1"></i> Reply</a>-->
+                                <!----See replies---->
+                          {% for reply in comment.replies.all %}
+                          <div class="media p-3">
+                             
+                              <img src="" alt="" class="mr-3 mt-0 rounded-circle" style="width:45px;">
+                                           
+                                    <div class="media-body"> 
+                                      <h5 class="fw-bold text-capitalize">{{reply.user}} </h5><small><p>Posted on {{reply.created_at}}</p></small>
+                                            <p>{{reply.reply_text}}</p>
+                                    </div>
+
+                          </div>
+                        {% endfor %}
+
+
+                          <!---form to post reply-->
+
+                        <form method="POST" action="{% url 'addcomment' id=article.id %}">
+                            <input type="hidden" name="comment.id" value="{{comment.id}}">
+                            <input type="hidden" name="comment.reply_to_user" value="{{comment.reply_to_user}}">
+                            {% csrf_token %}
+                            {{form2.as_p}}
+                            <i class="mdi mdi-reply me-1"></i>
+                            <input type="submit" name="form2" value="Reply" class="btn btn-warning btn-sm">
+                        </form>
+
+                            <!--__________TESTE END______________-->
+
+                        </div>
                     </div>
-                    <div class="right-content">
-                        <h4>{{ item.user.username }}<span>{{ item.created_at|date:"d/m/Y" }}</span></h4>
-                        <p>{{ item.text }}</p>
+                </div>
+            </div>
+        
+            {% endfor %}
+        
+
+             <!--___________REPLY___________-->
+             <!--
+
+             <div class="comment-section pt-4 ps-5 ms-4">
+                <div class="d-flex">
+                    <img src="images/left-about-img.jpg" class="rounded-circle" style="height: 70px;" alt="img-missing">
+                    <div class="flex-1 ms-4">
+                        <div class="post-meta float-end">
+                            <span><i class="mdi mdi-calendar me-2"></i>Nov 28, 2021</span>
+                        </div>
+                        <h5 class="f-16 text-capitalize">Pranav Gamewala</h5>
+                        <p class="text-muted text-capitalize">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
+                        <div class="mt-4">
+                            <a href="" class="btn btn-primary btn-sm"><i class="mdi mdi-reply me-1"></i> Reply</a>
+                        </div>
                     </div>
-                </li>
-            </ul>
-        {% endfor %}
-    <!-- Se não houver comentários -->
+                </div>
+            </div>
+        -->
+            <!--___________REPLY-END__________-->
+               
+
+        </div>
+    </div>          
+       
+
+    <!-- Display a message if there are no comments -->
     {% else %}
-        <h4>Be the first to comment this post</h4>
+        <h4>Be the first to comment on this post</h4>
     {% endif %}
 
 {% else %}
-    <p>Login in the page to add comment</p>
-    <button class = "btn btn-warning mb-3" url="">Login</button>
+    <p>Login to the page to add a comment</p>
+    <a href="{% url 'index' %}" class="btn btn-warning mb-3">Login</a>
 {% endif %}

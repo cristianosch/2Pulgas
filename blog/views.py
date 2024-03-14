@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Category, Article, Post, Comment
-from .forms import CommentForm
+from .models import Category, Article, Post, Comment, Reply
+from .forms import CommentForm, ReplyForm
 from django.shortcuts import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -26,18 +27,44 @@ def home(request):
     return render(request, 'blog/index.html', context)
 
 
+
 def addcomment(request, id):
     url = request.META.get('HTTP_REFERER')
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated:
+
         form = CommentForm(request.POST)
         if form.is_valid():
             data = Comment()
-            data.user = form.cleaned_data['user']
-            data.comment = form.cleaned_data['comment']
-            data.post_id = id
+            data.user = request.user  # Use request.user for the authenticated user
+            data.text = form.cleaned_data['text']
+            data.post_id = request.POST.get('post_id')  # Obtém o post_id do formulário
+            data.save()
+            return HttpResponseRedirect(url)
+        
+        
+        form2 = ReplyForm(request.POST)
+        if form2.is_valid():
+            data = Reply()
+            data.user = request.user and request.reply_to_user
+            data.text = form2.cleaned_data['text']
+            data.post_id = request.POST.get('reply_to_user')
             data.save()
             return HttpResponseRedirect(url)
     return HttpResponseRedirect(url)
+
+
+def reply_comment(request, id):
+    url = request.META.get('HTTP_REFERER')
+    if request.mehod == 'POST' and request.user.is_authenticated:
+        form2 = ReplyForm(request.POST)
+        if form2.is_valid():
+            data = Reply()
+            data.user = request.user and request.reply_to_user
+            data.text = form2.cleaned_data['text']
+            data.post_id = request.POST.get('reply_to_user')
+            data.save()
+            return HttpResponseRedirect(url)
+    return HttpResponseRedirect(url)        
 
 
 def post_detail(request, id, slug):

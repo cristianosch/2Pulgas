@@ -22,4 +22,11 @@ class ArticleAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     
 
-admin.site.register(Comment)
+@admin.register(Comment)
+class Comment(admin.ModelAdmin):
+    list_display = ('text', 'user', 'post','status','created_at')
+    
+
+@admin.register(Reply)
+class Reply(admin.ModelAdmin):
+    list_display = ('reply_to_user', 'user', 'reply_text','created_at')

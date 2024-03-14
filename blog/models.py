@@ -85,11 +85,31 @@ class Comment(models.Model):
         ('Approved', 'Approved'),
         ('Not approved', 'Not approved'),
     )
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS, max_length=20, default="Not approved")
 
     def __str__(self):
-        return self.user 
+        return self.user.username
+    
+    def save(self, *args, **kwargs):
+        # Check if the post field is empty
+        if not self.post_id:
+            # If it's empty, set the post field to the related post of the comment
+            self.post_id = self.post_id
+        super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['-created_at']
+    
+
+class Reply(models.Model):
+    reply_to_user = models.ForeignKey(Comment, on_delete=models.CASCADE,related_name='replies', null=True)
+    reply_text = models.TextField(max_length=500, null=True)    
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True, default=User)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return "reply to " + str(self.comment)
