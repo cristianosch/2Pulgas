@@ -18,11 +18,10 @@ class CommentForm(ModelForm):
 class ReplyForm(forms.ModelForm):
     class Meta:
         model = Reply
-        fields = ('user','reply_text',)
+        fields = ('reply_text',)
         
         labels = {"reply_text":"Reply Comment:"}
 
-        widgets = {
-            'user': forms.Textarea(attrs={'class':'form-control', 'rows':2, 'cols':4, 'placeholder':"Name"}),
+        widgets = {            
             'reply_text': forms.Textarea(attrs={'class':'form-control', 'rows':4, 'cols':10, 'placeholder':"Reply Comment"}),
         }

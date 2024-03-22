@@ -9,3 +9,12 @@ O formulario do reply nao esta aparecendo, fazer com que apareça e realizar os 
 ________________
 
 Proximos passos login
+
+___________________
+
+
+Reply não salva o comentario!!!!!
+
+
+
+OS COMENTARIOS NÃO ESTÃO SENDO VISTOS SEM O login >> CORRIGIR

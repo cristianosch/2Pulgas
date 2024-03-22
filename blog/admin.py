@@ -20,13 +20,33 @@ class ArticleAdmin(admin.ModelAdmin):
     inlines = [PostInline]    
     list_display = ('title', 'category', 'user','created_date')
     prepopulated_fields = {'slug': ('title',)}
-    
+
 
 @admin.register(Comment)
-class Comment(admin.ModelAdmin):
-    list_display = ('text', 'user', 'post','status','created_at')
-    
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('text', 'user', 'article','status','created_at')
+
 
 @admin.register(Reply)
-class Reply(admin.ModelAdmin):
-    list_display = ('reply_to_user', 'user', 'reply_text','created_at')
+class ReplyAdmin(admin.ModelAdmin):
+    list_display = ('reply_content', 'user', 'reply_text','created_at')
+
+    
+    
+'''
+class ReplyInline(admin.StackedInline):
+    model = Reply
+    list_display = ('reply_content', 'user', 'reply_text','created_at')
+    extra = 0
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    inline = [ReplyInline]
+    list_display = ('text', 'user', 'article','status','created_at')
+
+    def get_article(self, obj):
+        return obj.article.title if obj.article else None  # Retorna o título do artigo se existir, caso contrário, retorna None
+
+    get_article.short_description = 'Article'  # Definir o nome do cabeçalho da coluna
+'''
