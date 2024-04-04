@@ -24,79 +24,54 @@
             <!--___________COMMENTS___________-->
        
             {% for comment in comments %}
-
             <div class="comment-section border-bottom pb-4">
                 <div class="d-flex">
-                    <img src="images/hero.jpg" class="rounded-circle" style="height: 70px;" alt="img-missing">
+                    <img src="images/hero.jpg" class="rounded-circle" style="height: 70px;" alt="img">
                     <div class="flex-1 ms-4">
                         <div class="post-meta float-end">
-                            <span><i class="mdi mdi-calendar me-2"></i>{{ comment.created_at|date:"d/m/Y" }}</span>
+                            <span><i class="mdi mdi-calendar me-2"></i>
+                                {{ comment.created_at|date:"d/m/Y" }}
+                            </span>
                         </div>
-                        <h5 class="f-16 text-capitalize">{{ comment.user.username }}</h5>
-                        <p class="text-muted text-capitalize">{{ comment.text }}</p>
+                        <h5 class="f-16 text-capitalize">
+                            {{ comment.user.username }}
+                        </h5>
+                        <p class="text">
+                            <b> {{ comment.text }} </b>
+                        </p>
                         <div class="mt-4">
+                            <!-- Replies -->
 
-                            <!--______________TESTE DO REPLY DENTRO DESSA SEÇÃO____________
-                            <a href="" class="btn btn-primary btn-sm"><i class="mdi mdi-reply me-1"></i> Reply</a>-->
-                                <!----See replies---->
-                          {% for reply in comment.replies.all %}
-                          <div class="media p-3">
-                             
-                              <img src="" alt="" class="mr-3 mt-0 rounded-circle" style="width:45px;">
-                                           
-                                    <div class="media-body"> 
-                                      <h5 class="fw-bold text-capitalize">{{reply.user}} </h5><small><p>Posted on {{reply.created_at}}</p></small>
-                                            <p>{{reply.reply_text}}</p>
+                            {% for reply in comment.replies.all %}
+                            <div class="media p-3">
+                                <img src="" alt="img" class="mr-3 mt-0 rounded-circle" style="width:45px;" >
+                                <div class="media-body">                                     
+                                    <div class="post-meta float-end">
+                                    <span><i class="mdi mdi-calendar me-2"></i> 
+                                        {{ reply.created_at|date:"d/m/Y" }}
+                                    </span>
                                     </div>
-
-                          </div>
-                        {% endfor %}
-
-
-                          <!---form to post reply-->
-
-                        <form method="POST" action="{% url 'addcomment' id=article.id %}">                           
-                            {% csrf_token %}
-                                <!--<input type="hidden" name="comment.id" value="{{comment.id}}">-->
-                                <input type="hidden" name="comment.reply_content" value="{{comment.reply_content}}">
-                            {{reply_form.as_p}}
-                            <i class="mdi mdi-reply me-1"></i>
-                            <input type="submit" name="reply_form" value="Reply" class="btn btn-warning btn-sm">
-                        </form>
-
-                            <!--__________TESTE END______________-->
-
+                                    <h5 class="f-16 text-capitalize">{{ reply.user }} </h5>
+                                    <p><b>{{ reply.reply_text }}</b></p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            
+                            <!-- Formulário para responder -->
+                            <form method="POST" action="{% url 'add_reply' comment.id %}">                          
+                                {% csrf_token %}
+                                <input type="hidden" name="reply_content" value="{{ comment.id }}"> <!-- Use o ID do comentário -->
+                                {{ reply_form.as_p }}
+                                <i class="mdi mdi-reply me-1"></i>
+                                <input type="submit" name="reply_form" value="Reply" class="btn btn-warning btn-sm">
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        
             {% endfor %}
-        
-
-             <!--___________REPLY___________-->
-             <!--
-
-             <div class="comment-section pt-4 ps-5 ms-4">
-                <div class="d-flex">
-                    <img src="images/left-about-img.jpg" class="rounded-circle" style="height: 70px;" alt="img-missing">
-                    <div class="flex-1 ms-4">
-                        <div class="post-meta float-end">
-                            <span><i class="mdi mdi-calendar me-2"></i>Nov 28, 2021</span>
-                        </div>
-                        <h5 class="f-16 text-capitalize">Pranav Gamewala</h5>
-                        <p class="text-muted text-capitalize">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
-                        <div class="mt-4">
-                            <a href="" class="btn btn-primary btn-sm"><i class="mdi mdi-reply me-1"></i> Reply</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        -->
-            <!--___________REPLY-END__________-->
-               
-
-        </div>
+            
+       </div>
     </div>          
        
 

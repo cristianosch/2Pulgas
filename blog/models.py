@@ -109,11 +109,10 @@ class Comment(models.Model):
     
 
 class Reply(models.Model):
-    reply_content = models.ForeignKey(Comment, on_delete=models.CASCADE,related_name='replies', null=True)
+    reply_content = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replies', null=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True, default=User)
     reply_text = models.TextField(max_length=500, null=True)        
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        #return "reply to " + str(self.comment)
-        return "'{}' replied with '{}' to '{}'".format(self.user ,self.reply_content,self.reply_text, self.reply_content)
+        return "'{}' replied with '{}' to '{}'".format(self.user ,self.reply_text, self.reply_content)

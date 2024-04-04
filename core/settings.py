@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib.messages import constants
 import os
 from django.utils.translation import gettext_lazy as _
 from modeltranslation.translator import TranslationOptions, register
@@ -166,3 +167,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 #STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Messagens Setup
+
+MESSAGE_TAGS = {
+ constants.DEBUG: 'alert-primary',
+ constants.ERROR: 'alert-danger',
+ constants.SUCCESS: 'alert-success',
+ constants.INFO: 'alert-info',
+ constants.WARNING: 'alert-warning',
+}

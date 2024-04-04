@@ -3,6 +3,9 @@ from .models import Category, Article, Post, Comment, Reply
 from .forms import CommentForm, ReplyForm
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.messages import constants
+from django.contrib import messages
+from django.urls import reverse
 
 
 
@@ -34,39 +37,38 @@ def addcomment(request, id):
         form = CommentForm(request.POST)
         if form.is_valid():
             data = Comment()
-            data.user = request.user  # Use request.user for the authenticated user
+            data.user = request.user
             data.text = form.cleaned_data['text']
-            data.article_id = request.POST.get('article_id')  # Obtém o article_id do formulário
-            data.save()
-            return HttpResponseRedirect(url)
-        
-        
-        reply_form = ReplyForm(request.POST)
-        if reply_form.is_valid():
-            data = Reply()
-            data.user = request.user 
-            data.text = reply_form.cleaned_data['reply_text']
             data.article_id = request.POST.get('article_id')
             data.save()
+            messages.add_message(request, constants.SUCCESS, 'Your comment has been submitted.')
             return HttpResponseRedirect(url)
-    return HttpResponseRedirect(url)
+    return HttpResponseRedirect(url)      
 
-'''
 
-def reply_comment(request, id):
-    url = request.META.get('HTTP_REFERER')
-    if request.mehod == 'POST' and request.user.is_authenticated:
-        form2 = ReplyForm(request.POST)
-        if form2.is_valid():
-            data = Reply()
-            data.user = request.user and request.reply_to_user
-            data.text = form2.cleaned_data['text']
-            data.post_id = request.POST.get('reply_to_user')
-            data.save()
-            return HttpResponseRedirect(url)
-    return HttpResponseRedirect(url)        
+def add_reply(request, comment_id):
+    if request.method == 'POST':
+        form = ReplyForm(request.POST)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.reply_content_id = comment_id
+            reply.user = request.user
+            reply.save()
+            
+            # Redirecionar para a página de detalhes do artigo onde a resposta foi adicionada
+            comment = Comment.objects.get(pk=comment_id)
+            article_id = comment.article.id
 
-'''
+            article = comment.article
+            post_detail_url = reverse('post_detail', kwargs={'id': article.id, 'slug': article.slug})
+            
+            return redirect(post_detail_url)  # Redireciona de volta para a página de detalhes do post
+            
+            
+    # Se houver um erro ou se o método não for POST, redirecione de volta para a página inicial
+    return redirect('/')
+
+
 def post_detail(request, id, slug):
     article = get_object_or_404(Article, pk=id)
     post = Post.objects.filter(article_id=id)      
@@ -96,18 +98,3 @@ def post_detail(request, id, slug):
 def page_not_found(request):
     return render(request, 'base/404.html', status=404)
 
-    
-'''
-PARTE ELIMINADA DO POST DETAILS
-
-    # Check if the request is a POST request to handle form submission
-    if request.method == 'POST':
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            data = Comment()
-            data.user = comment_form.cleaned_data['user']
-            data.comment = comment_form.cleaned_data['comment']
-            data.article_id = id
-            data.save()
-            return HttpResponseRedirect(request.path)  # Redirect to the same page to avoid resubmission
-'''
