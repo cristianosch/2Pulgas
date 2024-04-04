@@ -29,7 +29,7 @@ def home(request):
     return render(request, 'blog/index.html', context)
 
 
-
+@login_required
 def addcomment(request, id):
     url = request.META.get('HTTP_REFERER')
     if request.method == 'POST' and request.user.is_authenticated:
@@ -46,6 +46,7 @@ def addcomment(request, id):
     return HttpResponseRedirect(url)      
 
 
+@login_required
 def add_reply(request, comment_id):
     if request.method == 'POST':
         form = ReplyForm(request.POST)

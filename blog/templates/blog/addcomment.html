@@ -8,7 +8,7 @@
         {{ comment_form.as_p }} {# Use comment_form instead of form #}
 
         <input type="hidden" name="article_id" value="{{ article.id }}">
-{% if request.user.is_authenticated %}
+
         <button class="btn btn-primary" type="submit">Add Comment</button>
     </form>
 
@@ -80,7 +80,4 @@
         <h4>Be the first to comment on this post</h4>
     {% endif %}
 
-{% else %}
-    <p>Login to the page to add a comment</p>
-    <a href="{% url 'index' %}" class="btn btn-warning mb-3">Login</a>
-{% endif %}
+

@@ -14,7 +14,7 @@ from pathlib import Path
 from django.contrib.messages import constants
 import os
 from django.utils.translation import gettext_lazy as _
-from modeltranslation.translator import TranslationOptions, register
+#from modeltranslation.translator import TranslationOptions, register
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
