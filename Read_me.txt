@@ -18,3 +18,6 @@ Reply não salva o comentario!!!!!
 
 
 OS COMENTARIOS NÃO ESTÃO SENDO VISTOS SEM O login >> CORRIGIR
+
+
+https://console.developers.google.com/

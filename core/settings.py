@@ -43,17 +43,32 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',    
     'embed_video',    
     'blog',
+    'users',
+    
+    'django_extensions',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    #'allauth.socialaccount.providers.github',
+    #'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+
+    'crispy_forms',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',    
-    'django.middleware.locale.LocaleMiddleware',   # New
+    'django.middleware.locale.LocaleMiddleware',   # Locale added
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware", # Authentication added
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -177,3 +192,38 @@ MESSAGE_TAGS = {
  constants.INFO: 'alert-info',
  constants.WARNING: 'alert-warning',
 }
+
+
+# SOCIAL MEDIA AUTHENTICATION
+
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS' : {
+            'access_type' : 'online',
+        }
+    }
+}
+
+# ADICIONAR AS LINHAS DE BAIXO ASSIM QUE TIVER OS TEMPLATES
+
+LOGIN_REDIRECT_URL = 'index'
+
+ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
+
+# Django Crispy Forms
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4' 
