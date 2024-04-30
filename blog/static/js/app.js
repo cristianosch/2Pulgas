@@ -1,5 +1,5 @@
-/* Theme Name: Trenddy  - Responsive Blog Template
-   Author: Pichforest
+/* Theme Name: 2 Pulgas  - Responsive Blog Template
+   Author: Cristiano Schroeder
    Version: 1.0.0
    File Description: Main JS file of the template
 */

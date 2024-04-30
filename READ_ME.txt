@@ -47,11 +47,11 @@ __________________
 
 O QUE FALTA?
 
-1- ABOUT US
+1- ABOUT US  - em andamento
 
 2- PAGINAÇÃO NO HOME 💯️
 
-3- ARRUMAR O AJUSTE DE CORES DO MENU ESQUERDO
+3- ARRUMAR O AJUSTE DE CORES DO MENU ESQUERDO  - ta complicado
 
 4- TRADUÇÃO
 
@@ -63,9 +63,15 @@ O QUE FALTA?
 
 8- Quote 💯️
 
-9- Ajustar tamanho das imagens hero
+9- Ajustar tamanho das imagens hero 💯️
 
-10- Contato
+10- Contato - em andamento
+
+11- Ajustes para Mobile {
+    imagens
+    login user
+    busca
+}
 __________________
 
 Como adicionar link de compartilhamento

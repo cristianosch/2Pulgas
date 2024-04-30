@@ -4,41 +4,14 @@
 
 {% block content %}
 
-    <div class="offcanvas offcanvas-top search-offcanvas" tabindex="-1" id="offcanvasTop">
-        <div class="p-3">
-            <a href=""> <i class="mdi mdi-close text-white float-end f-24" data-bs-dismiss="offcanvas" aria-label="Close"></i></a>
-        </div>
-        <div class="offcanvas-body">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="search-form mt-5">
-                        <form action="#">
-                            <input type="text" placeholder="Search the site...">
-                            <button type="submit" class="btn btn-primary btn-rounded">Search Now</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="logo-box d-none d-xl-block">
-        <div class="container">
-            <div class="topbar-logo text-center">
-                <a href="/" class="logo">
-                    <img src="{% static 'images/logo-dark.png' %}" alt="" class="logo-light" height="70" />
-                </a>
-            </div>
-        </div>
-    </div>
+    
+    {% include 'base/header.html' %}
 
     <!-- START SLIDER-HOME -->
 
     {% include 'partials/slider_header.html' %}
     
     <!-- END HOME SLIDER -->
-
-
 
     <!-- START BLOG-POST -->
     <section class="section">
@@ -72,7 +45,7 @@
                                         <div class="link-post-content">
                                             <i class="mdi mdi-format-quote-open display-6"></i>
                                             <h4><a href="" class="text-dark f-20">Quote</a></h4>
-                                            <h3 class="mt-3"><a href="standard-post.html" class="blog-post-title f-22">{{ quote }}</a></h3>
+                                            <h3 class="mt-3"><a href="" class="blog-post-title f-22"><!--adicionar o quote aqui--></a></h3>
                                             
                                         </div>
                                     </div>
@@ -90,25 +63,6 @@
 
                 <!-- END OF LIST POST -->
 
-              
-
-
-               <!--_______________________________________________________________________-->
-                <!-- START PAGINATION 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <ul class="pagination mt-3">
-                                <li class="next"><a href="#"><i class="mdi mdi-chevron-left"></i></a></li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li class="prev"><a href="#"><i class="mdi mdi-chevron-right"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                END PAGINATHIO -->
 
             </div>
             <!-- SIDEBAR -->
@@ -121,42 +75,6 @@
     </section>
     <!-- END BLOG-POST -->
 
-    <!-- START INSTAGRAM -->
-    <section class="position-relative bg-white">
-        <div class="instagram">
-            <ul class="instagram-footer mb-0">
-                <li>
-                    <a href="#"><img src="images/instagram/img-1.jpg" alt="" class="img-fluid"></a>
-                </li>
-                <li>
-                    <a href="#"><img src="images/instagram/img-2.jpg" alt="" class="img-fluid"></a>
-                </li>
-                <li>
-                    <a href="#"><img src="images/instagram/img-3.jpg" alt="" class="img-fluid"></a>
-                </li>
-                <li>
-                    <a href="#"><img src="images/instagram/img-4.jpg" alt="" class="img-fluid"></a>
-                </li>
-                <li>
-                    <a href="#"><img src="images/instagram/img-5.jpg" alt="" class="img-fluid"></a>
-                </li>
-                <li>
-                    <a href="#"><img src="images/instagram/img-6.jpg" alt="" class="img-fluid"></a>
-                </li>
-                <li>
-                    <a href="#"><img src="images/instagram/img-7.jpg" alt="" class="img-fluid"></a>
-                </li>
-                <li>
-                    <a href="#"><img src="images/instagram/img-8.jpg" alt="" class="img-fluid"></a>
-                </li>
-            </ul>
-        </div>
-        <div class="insta-lable text-center">
-            <a href="">
-                <p class="text-white mb-0 bg-primary">Follow In Instagram</p>
-            </a>
-        </div>
-    </section>
-    <!-- END INSTAGRAM -->
+
 
 {% endblock content %}

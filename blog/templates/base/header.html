@@ -1,0 +1,28 @@
+{% load static %} 
+<div class="offcanvas offcanvas-top search-offcanvas" tabindex="-1" id="offcanvasTop">
+    <div class="p-3">
+        <a href=""> <i class="mdi mdi-close text-white float-end f-24" data-bs-dismiss="offcanvas" aria-label="Close"></i></a>
+    </div>
+    <div class="offcanvas-body">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="search-form mt-5">
+                    <form action="#">
+                        <input type="text" placeholder="Search the site...">
+                        <button type="submit" class="btn btn-primary btn-rounded">Search Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="logo-box d-none d-xl-block">
+    <div class="container">
+        <div class="topbar-logo text-center">
+            <a href="/" class="logo">
+                <img src="{% static 'images/logo-dark.png' %}" alt="" class="logo-light" height="70" />
+            </a>
+        </div>
+    </div>
+</div>

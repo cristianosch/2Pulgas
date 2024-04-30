@@ -25,5 +25,6 @@ urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),    
     path('', include('blog.urls')),      
+    path('', include('about_us.urls')),
 )+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

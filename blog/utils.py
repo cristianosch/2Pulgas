@@ -8,6 +8,8 @@ RAPIDAPI_KEY = os.getenv('RAPIDAPI_KEY')
 
 
 def get_random_quote_url():
+    '''                   # ELIMINAR DO COMMENT EM PRODUÇÃO
+
     # Gerar um número aleatório entre 1 e 10 (ou o intervalo desejado)
     quote_number = random.randint(1, 50)  # Altere o intervalo conforme necessário
     
@@ -15,14 +17,18 @@ def get_random_quote_url():
     url = f"https://motivational-content.p.rapidapi.com/quotes/{quote_number}"
     
     return url
+    '''
+    pass
 
 
 def get_quote():
+
+    '''                 # ELIMINAR DO COMMENT EM PRODUÇÃO
     
     url = get_random_quote_url()  # Obter a URL dinâmica com número aleatório
     headers = {
         #"X-RapidAPI-Key": RAPIDAPI_KEY,
-        "X-RapidAPI-Host": "motivational-content.p.rapidapi.com"
+        #"X-RapidAPI-Host": "motivational-content.p.rapidapi.com"
     }
     print(url)
     
@@ -34,3 +40,6 @@ def get_quote():
         return quote_data["quote"]
     else:
         return "Unable to obtain quote at this time."
+
+    '''
+    pass

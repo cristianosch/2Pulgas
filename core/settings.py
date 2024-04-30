@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',    
     'embed_video',    
     'blog',
+    'about_us',
     'users',
     
     'django_extensions',
@@ -264,3 +265,12 @@ ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4' 
 
+# Django Resized configurantion
+
+#DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
+#DJANGORESIZED_DEFAULT_SCALE = 0.5
+#DJANGORESIZED_DEFAULT_QUALITY = 75
+#DJANGORESIZED_DEFAULT_KEEP_META = True
+#DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
+#DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
+#DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True

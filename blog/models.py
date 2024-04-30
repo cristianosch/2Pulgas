@@ -35,7 +35,7 @@ class Article(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.SET(get_sentinel_user),)
     title = models.CharField(max_length=200, null=False)
     slug = models.SlugField(unique=True, null=False)
-    image = ResizedImageField(size=[900, 400], upload_to='media/article', blank=True, null=True)
+    image = ResizedImageField(size=[900, 400], force_format='PNG', upload_to='media/article', blank=True, null=True)
     content = HTMLField()        
     created_date = models.DateTimeField(default=timezone.now, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Published') 
@@ -57,7 +57,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200, null=True)    
     content = HTMLField() 
     link_site = models.CharField(max_length=200, null=True, blank=True, verbose_name = "Link Referencia Site")
-    image = models.ImageField(upload_to = 'media/post', blank=True, null=True)    
+    image = ResizedImageField(size=[900, 400], force_format='PNG', upload_to='media/post', blank=True, null=True)        
     video = models.FileField(upload_to = 'media/videos', verbose_name="Upload Video", blank=True, null=True)
     link_video = EmbedVideoField(null=True, blank=True, verbose_name = "Link Video")    
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.SET(get_sentinel_user),)
@@ -97,16 +97,7 @@ class Comment(models.Model):
     class Meta:
         ordering = ['-created_at']
 
-'''
-    def save(self, *args, **kwargs):
-        # Check if the post field is empty
-        if not self.category_id:
-            # If it's empty, set the post field to the related post of the comment
-            self.category_id = self.category_id
-        super().save(*args, **kwargs)
-'''
-
-    
+   
 
 class Reply(models.Model):
     reply_content = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replies', null=True)

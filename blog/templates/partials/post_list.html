@@ -45,9 +45,9 @@
   <div class="col-lg-12">
       
         <div class="pagination">
-          <span class="blog-post-title">
+          <span class="blog-post">
               {% if list_post.has_previous %}
-                  <a href="?page={{ list_post.previous_page_number }}">Previous</a>
+                  <a href="?page={{ list_post.previous_page_number }}"> <i class="mdi mdi-chevron-left"></i> Previous</a>
               {% endif %}
           
               <span class="current">
