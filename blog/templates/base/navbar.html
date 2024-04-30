@@ -29,28 +29,11 @@
                     <li class="nav-item dropdown dropdown-hover">
                         <a class="nav-link"  href="/">Home</a>
                     </li>
-
                     
                     <li class="nav-item">
                         <a class="nav-link" href="about.html">About</a>
                     </li>
-                    <!-- 
-                    <li class="nav-item dropdown dropdown-hover">
-                        <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="" role="button"
-                            aria-haspopup="true" aria-expanded="false">Sample pages
-                            <i class="mdi mdi-chevron-down down-arrow"></i>
-                        </a>
 
-                        <div class="dropdown-menu nav-dropdown-menu">
-                            <div class="nav-item dropdown dropdown-hover">
-                                <a class="dropdown-item" href="full-width.html">Full Width</a>
-                                <a class="dropdown-item" href="left-sidebar.html">Left-Sidebar</a>
-                                <a class="dropdown-item" href="right-sidebar.html">Right-Sidebar</a>
-                                <a class="dropdown-item" href="404.html">404 Error Page</a>
-                            </div>
-                        </div>
-                    </li>
-                    -->
                     <li class="nav-item">
                         <a class="nav-link" href="contact.html">Contact</a>
                     </li>
@@ -62,21 +45,35 @@
                 </ul>
 
                 <div class="topbar-search d-flex justify-content-end d-none d-lg-block">
-                    <ul class="list-inline mb-0">
+                    <ul class="navbar-nav mx-auto m-2">
                         <li class="list-inline-item pe-3 me-0 shop-icon">
                             <div class="topbar-shop">
-                                <a href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
-                                    aria-controls="offcanvasTop"><i class="mdi mdi-magnify"></i></a>
+                                <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
+                                    aria-controls="offcanvasTop"><i class="mdi mdi-magnify">
+                                </i></a>
+                            </div>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item dropdown dropdown-hover">
+                            <a class="nav-link dropdown-toggle arrow-none m-1" data-toggle="dropdown" href="" role="button"
+                                aria-haspopup="true" aria-expanded="false">{{ user }}
+                                <i class="mdi mdi-chevron-down down-arrow"></i>
+                            </a>
 
+                            <div class="dropdown-menu nav-dropdown-menu">
+                                <div class="nav-item dropdown dropdown-hover">
+                                    <a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a>
+                                    <a class="dropdown-item" href="{% url 'account_email' %}">Change E-mail</a>                                   
+                                </div>
                             </div>
                         </li>
-                        <li class="list-inline-item ps-3">
-                            <div class="topbar-shop">
-                                <a href="#"><i class="mdi mdi-cart"></i>
-                                    <span class="badge bg-danger">0</span>
-                                </a>
-                            </div>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link m-1" href="{% url 'account_login' %}">Sign In</a>
                         </li>
+
+
+                        {% endif %}
                     </ul>
                 </div>
 

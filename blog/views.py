@@ -6,17 +6,35 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.messages import constants
 from django.contrib import messages
 from django.urls import reverse
-
+from .utils import get_quote
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 
 def home(request):
     header_random = Article.objects.order_by('?')[:4]
     post_latest = Article.objects.order_by('id')[:1]    
     post_random = Article.objects.order_by('?')[:2]
-    list_post = Article.objects.order_by('id')[:3]
+    list_post = Article.objects.all()
     
     category = Category.objects.all()
     article = Article.objects.all()
+
+    quote = get_quote()
+
+    paginator = Paginator(list_post, 2)
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+
+    # Se o page request (9999) está fora da lista, mostre a última página.
+    try:
+        list_post = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        list_post = paginator.page(paginator.num_pages)
+
+
     context = {
         'header_random': header_random,
         'post_latest': post_latest,
@@ -24,6 +42,7 @@ def home(request):
         'article': article, 
         'post_random': post_random,
         'list_post': list_post,
+        'quote' : quote,        
     }
         
     return render(request, 'blog/index.html', context)
@@ -41,7 +60,7 @@ def addcomment(request, id):
             data.text = form.cleaned_data['text']
             data.article_id = request.POST.get('article_id')
             data.save()
-            messages.add_message(request, constants.SUCCESS, 'Your comment has been submitted.')
+            messages.add_message(request, constants.SUCCESS, 'Your comment was successfully submitted and will appear after being approved by the website administrators.')
             return HttpResponseRedirect(url)
     return HttpResponseRedirect(url)      
 
@@ -55,6 +74,7 @@ def add_reply(request, comment_id):
             reply.reply_content_id = comment_id
             reply.user = request.user
             reply.save()
+            messages.add_message(request, constants.SUCCESS, 'Your comment has been submitted.')
             
             # Redirecionar para a página de detalhes do artigo onde a resposta foi adicionada
             comment = Comment.objects.get(pk=comment_id)
@@ -72,6 +92,7 @@ def add_reply(request, comment_id):
 
 def post_detail(request, id, slug):
     article = get_object_or_404(Article, pk=id)
+    category = Category.objects.all()
     post = Post.objects.filter(article_id=id)      
     list_post = Article.objects.order_by('id')[:3]
 
@@ -84,7 +105,8 @@ def post_detail(request, id, slug):
 
 
     context = {
-        'article': article,                 
+        'article': article,      
+        'category': category,           
         'post': post, 
         'list_post': list_post,
         'comments': comments,

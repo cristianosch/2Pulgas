@@ -5,7 +5,9 @@
 
     <form method="POST" action="{% url 'addcomment' id=article.id %}">
         {% csrf_token %}
-        {{ comment_form.as_p }} {# Use comment_form instead of form #}
+
+
+        {{ comment_form.as_p }} 
 
         <input type="hidden" name="article_id" value="{{ article.id }}">
 
@@ -60,6 +62,7 @@
                             <!-- Formulário para responder -->
                             <form method="POST" action="{% url 'add_reply' comment.id %}">                          
                                 {% csrf_token %}
+
                                 <input type="hidden" name="reply_content" value="{{ comment.id }}"> <!-- Use o ID do comentário -->
                                 {{ reply_form.as_p }}
                                 <i class="mdi mdi-reply me-1"></i>

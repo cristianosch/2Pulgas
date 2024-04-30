@@ -38,3 +38,29 @@
   </div>
 </div>
 {% endfor %}
+
+<!-- START PAGINATION -->
+
+<div class="row">
+  <div class="col-lg-12">
+      
+        <div class="pagination">
+          <span class="blog-post-title">
+              {% if list_post.has_previous %}
+                  <a href="?page={{ list_post.previous_page_number }}">Previous</a>
+              {% endif %}
+          
+              <span class="current">
+                  PAGE {{ list_post.number }} of {{ list_post.paginator.num_pages }}.
+              </span>
+            
+              {% if list_post.has_next %}
+                  <a href="?page={{ list_post.next_page_number }}">NEXT <i class="mdi mdi-chevron-right"></i></a>
+              {% endif %}
+          </span>
+        </div>
+      
+    </div>
+</div>
+<!-- END PAGINATHIO -->
+

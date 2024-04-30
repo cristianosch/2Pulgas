@@ -269,20 +269,16 @@
         </h4>
       </div>
       <ul class="list-unstyled mb-0">
+
+        {% for category in categories %}
+
         <li class="border-bottom pb-3">
-          <a href="" class="text-muted">Journey</a
-          ><span class="f-13 float-end text-muted">(40)</span>
+          <a href="" class="text-muted">{{ Category.name }}</a
+          ><span class="f-13 float-end text-muted"></span>
         </li>
 
-        <li class="border-bottom py-3">
-          <a href="" class="text-muted">Photography</a
-          ><span class="f-13 float-end text-muted">(11)</span>
-        </li>
-
-        <li class="pt-3">
-          <a href="" class="text-muted">Lifestyle</a
-          ><span class="f-13 float-end text-muted">(09)</span>
-        </li>
+        {% endfor %}
+        
       </ul>
     </div>
   </div>

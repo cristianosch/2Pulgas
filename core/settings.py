@@ -14,11 +14,18 @@ from pathlib import Path
 from django.contrib.messages import constants
 import os
 from django.utils.translation import gettext_lazy as _
+
+from dotenv import load_dotenv
 #from modeltranslation.translator import TranslationOptions, register
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load environment variables from .env file
+load_dotenv()
+
+# Obter a chave de API do RapidAPI
+RAPIDAPI_KEY = os.getenv('RAPIDAPI_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -50,7 +57,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    #'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
 
@@ -237,6 +244,13 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERIFIED_EMAIL': False,
         'VERSION': 'v13.0',
         'GRAPH_API_URL': 'https://graph.facebook.com/v13.0',
+    },
+    'github': {
+        'SCOPE': [
+            'user',
+            'repo',
+            'read:org',
+        ],
     }
 }
 
@@ -249,3 +263,4 @@ ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
 # Django Crispy Forms
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4' 
+
