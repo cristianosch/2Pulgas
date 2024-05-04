@@ -22,8 +22,8 @@ class Category(models.Model):
     created_at = models.DateField(auto_now=True)    
 
     def __str__(self):
-        return self.name 
-    
+        return self.name     
+  
     
 STATUS_CHOICES = (
         ('draft', 'Draft'),
@@ -31,12 +31,12 @@ STATUS_CHOICES = (
     )   
 
 class Article(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="article", null=False, blank=False)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="article", null=False, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.SET(get_sentinel_user),)
-    title = models.CharField(max_length=200, null=False)
+    title = models.CharField(max_length=200, blank=False, null=False)
     slug = models.SlugField(unique=True, null=False)
     image = ResizedImageField(size=[900, 400], force_format='PNG', upload_to='media/article', blank=True, null=True)
-    content = HTMLField()        
+    content = HTMLField(blank=True)        
     created_date = models.DateTimeField(default=timezone.now, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Published') 
     
@@ -54,8 +54,8 @@ class Post(models.Model):
     #post_id = models.CharField(max_length=100, unique=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='posts', null=True, blank=True)    
-    title = models.CharField(max_length=200, null=True)    
-    content = HTMLField() 
+    title = models.CharField(max_length=200, null=True, blank=True)    
+    content = HTMLField(null=False, blank=True) 
     link_site = models.CharField(max_length=200, null=True, blank=True, verbose_name = "Link Referencia Site")
     image = ResizedImageField(size=[900, 400], force_format='PNG', upload_to='media/post', blank=True, null=True)        
     video = models.FileField(upload_to = 'media/videos', verbose_name="Upload Video", blank=True, null=True)

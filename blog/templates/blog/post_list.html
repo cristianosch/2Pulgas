@@ -1,0 +1,103 @@
+{% extends "base/base.html" %} 
+{% load static %} 
+{% load embed_video_tags %}
+
+
+{% block content %}
+
+<!-- LOGO START -->
+    
+{% include 'base/header.html' %}
+<!-- LOGO END -->
+ 
+    <!-- START SLIDER-HOME -->
+
+    <!-- START TITLE -->
+    <section class="section mt-1 mb-2" style="background: url(./images/header-1.jpg) center center;">
+        <div class="bg-overlay-header"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="title-heading text-center">
+                        <h2 class="home-title text-capitalize "><a href="">{{ Category.name }} Category</a></h2>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END TITLE -->
+
+    {% for item in list_post %}
+
+     <!-- START BLOG-POST -->
+    <section class="section">
+        <div class="container">
+           <div class="row">
+            <div class="col-lg-8">
+                <div class="post-box">
+                    {% if item.image %}
+                    <div class="post-img">
+                        <img src="{{ item.image.url }}" class="img-fluid rounded" alt="" width="600" height="300">
+                    </div>
+                    {% endif %}
+                    <div class="post-box-content">
+                        <div class="row align-items-center">
+                            <div class="col-md-2">
+                                <div class="justify-content-center d-flex">
+                                    <h1 class="blog-post-heading mb-0 text-primary d-none d-md-block">{{item.category}}
+                                    </h1>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="post-meta">
+                                    <span><i class="mdi mdi-account me-2"></i><a href="#">{{item.user}}</a></span>
+                                    <span><i class="mdi mdi-calendar me-2"></i>{{item.created_date}}</span>
+                                </div>
+                                <h3 class="mt-3"><a href="{% url 'post_detail' id=item.id slug=item.slug %}" class="blog-post-title">{{item.title}}</a></h3>
+                                <p class="mt-2 pt-1 text-muted">{{item.content|truncatewords:15|linebreaks}}</p>
+                                <div class="mt-4">
+                                    <a href="{% url 'post_detail' id=item.id slug=item.slug %}" class="btn btn-primary">Read more <i
+                                            class="mdi mdi-arrow-right ms-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           </div>
+        </div>
+    
+
+        {% empty %}
+        <h4>Nothing yet</h4>
+ 
+    {% endfor %}     
+
+</section> 
+    <!-- START PAGINATION -->
+    
+    <div class="row">
+      <div class="col-lg-12">
+          
+            <div class="pagination">
+              <span class="blog-post">
+                  {% if list_post.has_previous %}
+                      <a href="?page={{ list_post.previous_page_number }}"> <i class="mdi mdi-chevron-left"></i> Previous</a>
+                  {% endif %}
+              
+                  <span class="current">
+                      PAGE {{ list_post.number }} of {{ list_post.paginator.num_pages }}.
+                  </span>
+                
+                  {% if list_post.has_next %}
+                      <a href="?page={{ list_post.next_page_number }}">NEXT <i class="mdi mdi-chevron-right"></i></a>
+                  {% endif %}
+              </span>
+            </div>
+          
+        </div>
+    </div>
+
+    <!-- END PAGINATHIO -->
+{% endblock %}

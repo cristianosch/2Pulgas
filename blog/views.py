@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.urls import reverse
 from .utils import get_quote
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from about_us.models import AboutUs
 
 
 def home(request):
@@ -18,6 +19,7 @@ def home(request):
     
     category = Category.objects.all()
     article = Article.objects.all()
+    text = AboutUs.objects.all()
 
     quote = get_quote()
 
@@ -43,6 +45,7 @@ def home(request):
         'post_random': post_random,
         'list_post': list_post,
         'quote' : quote,        
+        'text' : text,
     }
         
     return render(request, 'blog/index.html', context)
@@ -52,7 +55,6 @@ def home(request):
 def addcomment(request, id):
     url = request.META.get('HTTP_REFERER')
     if request.method == 'POST' and request.user.is_authenticated:
-
         form = CommentForm(request.POST)
         if form.is_valid():
             data = Comment()
@@ -103,7 +105,6 @@ def post_detail(request, id, slug):
 
     reply_form = ReplyForm()
 
-
     context = {
         'article': article,      
         'category': category,           
@@ -120,4 +121,30 @@ def post_detail(request, id, slug):
 
 def page_not_found(request):
     return render(request, 'base/404.html', status=404)
+
+
+def post_list(request, id, slug):    
+    category = Category.objects.filter(pk=id)
+    #categories = Category.objects.filter(slug=slug)
+    list_post = Article.objects.all()
+    paginator = Paginator(list_post, 2)
+
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+
+    # Se o page request (9999) está fora da lista, mostre a última página.
+    try:
+        list_post = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        list_post = paginator.page(paginator.num_pages)
+
+    context = {
+        'category': category,
+        'list_post': list_post,
+        #'categories': categories,
+        #'post': post,
+    }    
+    return render(request, 'blog/post_list.html', context)
 

@@ -53,21 +53,21 @@
                         </div>
                         <h3 class="mt-3 py-1">
                             <a href=""class="text-black">
-                                {{article.title}}
+                                {{article.title|default:""}}
                             </a>
                         </h3>
-                        <p class="mt-3">{{article.content}}</p> 
+                        <p class="mt-3">{{article.content|default:""}}</p> 
                     </div>
 <!-- +++++++++++++++++++ POST DETAIL  ++++++++++++++++++++++++-->
                 {% for item in post %}                 
                     <div class="audio-vidio-post pt-4">
 
-                        <h3 class="mt-3 py-1">
+                        <h3 class="mt-3 py-1">  
                             <a href=""class="text-black">
-                                {{item.title}}
+                                {{item.title|default:""}}
                             </a>
                         </h3>
-                        <p class="mt-3">{{item.content}}</p> 
+                        <p class="mt-3">{{item.content|default:""}}</p> 
                     </div>
                     {% if item.image %}
                     <div class="post-img">
@@ -96,6 +96,7 @@
                         {% video item.link_video 'small' %}
                     </div> 
                 </div>
+
                 {% endfor %}     
 <!--+++++++++++++++++++++ END OF POST ++++++++++++++++++-->
 

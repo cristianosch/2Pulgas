@@ -6,10 +6,7 @@
 
 {% include 'base/header.html' %}
 
-
 <body>    
-
-
     <!-- START SLIDER-HOME -->
 
     <!-- START TITLE -->
@@ -19,8 +16,8 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10">
                     <div class="title-heading text-center">
-                        <h2 class="home-title text-capitalize"><a href="">About Me</a></h2>
-                        <span><a href="">Home</a> &nbsp; / &nbsp; About Us </span>
+                        <h2 class="home-title text-capitalize"><a href="">About Us</a></h2>
+                        <span><a href="/">Home</a> &nbsp; / &nbsp; About Us </span>
                     </div>
                 </div>
             </div>
@@ -28,101 +25,33 @@
     </section>
     <!-- END TITLE -->
 
-     <!-- START BLOG-POST -->
+     <!-- START BLOG-ABOUT-US -->
      <section class="section">
         <div class="container">
            <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="post-box mb-0">
+                    {% for item in text %}
+                    {% if item.image %}
                     <div class="post-img">
-                        <img src="images/about-section-pic.jpg" class="img-fluid rounded" alt="">
+                        <img src="{{item.image.url}}" class="img-fluid" alt="">
                     </div>
+                    {% endif %}
+                    
                     <div class="post-box-content">
-                            <p class="text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry standard dummy text ever since the 1500 when an unknown printer took a galley of type and scrambled it to make a type specimen book has survived not only five centuries but also the leap into electronic typesetting remaining essentially unchanged It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            <p class="text-muted mt-4">All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary making this the first true generator on the Internet It uses a dictionary of over 200 Latin words combined with a handful of model sentence structures to generate Lorem Ipsum which looks reasonable The generated Lorem Ipsum is therefore always free from repetition injected humour or non-characteristic words etc.</p>
-
+                            <p class="text-muted">{{ item.description }}</p>
+                    {% endfor %}
                             <blockquote class="blockquote p-4 bg-light">
-                                <h6 class="f-18 text-muted mb-4 line-height_1_6">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                     accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</h6>
+                                <h6 class="f-18 text-muted mb-4 line-height_1_6">Podemos adicionar o 'quote' aqui tbm</h6>
                                 <p class="f-15 mb-0 text-end">- Someone famous in Source Title</p>
-                            </blockquote>
-
-                            <div class="left-Links-icon mt-5 text-center">
-                                <ul class="list-inline links-social">
-
-                                    <li class="list-inline-item">
-                                        <a href="#" class="rounded-circle">
-                                            <i class="mdi mdi-facebook"></i>
-                                        </a>
-                                    </li>
-
-                                    <li class="list-inline-item">
-                                        <a href="#" class="rounded-circle">
-                                            <i class="mdi mdi-twitter"></i>
-                                        </a>
-                                    </li>
-
-                                    <li class="list-inline-item">
-                                        <a href="#" class="rounded-circle">
-                                            <i class="mdi mdi-linkedin"></i>
-                                        </a>
-                                    </li>
-
-                                    <li class="list-inline-item">
-                                        <a href="#" class="rounded-circle">
-                                            <i class="mdi mdi-vimeo"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                    </div>
+                            </blockquote>                            
+                    </div>                    
                 </div>
             </div>
            </div>
         </div>
     </section>
     <!-- END BLOG-POST -->
-    
- 
-
-    <!-- Style switcher -->
-    <div id="style-switcher" onclick="toggleSwitcher()" style="left: -189px;">
-        <div>
-            <h6>Select your color</h6>
-            <ul class="pattern list-unstyled mb-0">
-                <li>
-                    <a class="color1" href="javascript: void(0);" onclick="setColor('default')"></a>
-                </li>
-                <li>
-                    <a class="color2" href="javascript: void(0);" onclick="setColor('blue')"></a>
-                </li>
-                <li>
-                    <a class="color3" href="javascript: void(0);" onclick="setColor('warning')"></a>
-                </li>
-                <li>
-                    <a class="color4" href="javascript: void(0);" onclick="setColor('orange')"></a>
-                </li>
-                <li>
-                    <a class="color5" href="javascript: void(0);" onclick="setColor('info')"></a>
-                </li>
-                <li>
-                    <a class="color6" href="javascript: void(0);" onclick="setColor('purple')"></a>
-                </li>
-            </ul>
-        </div>
-        <div class="bottom">
-            <a href="javascript: void(0);" class="settings rounded-end"><i class="mdi mdi-settings mdi-spin"></i></a>
-        </div>
-    </div>
-    <!-- end switcher-->
-
-
-    <!-- javascript -->
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <!-- Swiper JS -->
-    <script src="js/swiper.min.js"></script>
-    <script src="js/app.js"></script>
-
 </body>
 
 {% endblock %}

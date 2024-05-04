@@ -21,7 +21,7 @@
           <span><i class="mdi mdi-calendar me-2"></i>{{item.created_date}}</span>
         </div>
         <h3 class="mt-3">
-          <a href="{% url 'post_detail' id=item.id slug=item.slug %}l" class="blog-post-title"
+          <a href="{% url 'post_detail' id=item.id slug=item.slug %}" class="blog-post-title"
             >{{item.title}}</a
           >
         </h3>
@@ -40,6 +40,7 @@
 {% endfor %}
 
 <!-- START PAGINATION -->
+
 
 <div class="row">
   <div class="col-lg-12">
@@ -62,5 +63,6 @@
       
     </div>
 </div>
+
 <!-- END PAGINATHIO -->
 

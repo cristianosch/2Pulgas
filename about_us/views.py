@@ -3,7 +3,11 @@ from .models import AboutUs
 
 
 def about_us(request):
-    return render(request, 'about.html')
+    text = AboutUs.objects.all()
+    context = {
+        'text':text
+    }
+    return render(request, 'about.html', context)
 
 
 def contact(request):
