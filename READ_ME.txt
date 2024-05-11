@@ -3,8 +3,6 @@
 https://github.com/pennersr/django-allauth/blob/main/allauth/templates/account/logout.html
 
 
-
-
 https://console.developers.google.com/
 
 
@@ -53,13 +51,13 @@ O QUE FALTA?
 
 3- ARRUMAR O AJUSTE DE CORES DO MENU ESQUERDO  - 💯️
 
-4- TRADUÇÃO
+4- TRADUÇÃO - on going
 
 5- SUBSCRIBE - PUSH MESSAGE 
 
-6- POSSIBILIDADE DE ADICIONAR IMAGENS DO NOSSO INSTAGRAM NA PAGINA - Deverá ser feito com o site em produção
+6- POSSIBILIDADE DE ADICIONAR IMAGENS DO NOSSO INSTAGRAM NA PAGINA - ( Deverá ser feito com o site em produção )
 
-7- SOCIAL LINKS
+7- SOCIAL LINKS 💯️
 
 8- Quote 💯️
 
@@ -67,9 +65,9 @@ O QUE FALTA?
 
 10- Contato - em andamento
 
-11- Ajustes para Mobile {
-    imagens
-    login user
+11- Ajustes para Mobile { 💯️
+    imagens 💯️
+    login user 💯️
     busca
 }
 __________________

@@ -20,11 +20,11 @@ msgstr ""
 
 #: .\core\settings.py:122
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: .\core\settings.py:123
 msgid "Portuguese"
-msgstr ""
+msgstr "Portuguese"
 
 #: .\core\settings.py:124
 msgid "Spanish"

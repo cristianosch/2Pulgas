@@ -22,22 +22,22 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load environment variables from .env file
-load_dotenv()
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 # Obter a chave de API do RapidAPI
-RAPIDAPI_KEY = os.getenv('RAPIDAPI_KEY')
+RAPIDAPI_KEY = str(os.getenv('RAPIDAPI_KEY'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8i73hkt16x-1j)4i=i=0wy8yt1!lp^9(264+&up)hx-&zins3q'
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = str(os.getenv('DEBUG'))
 
 ALLOWED_HOSTS = ['localhost']
-
 
 # Application definition
 
@@ -63,6 +63,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     'crispy_forms',
+    'rosetta',
+    "parler",
 ]
 
 SITE_ID = 1
@@ -77,6 +79,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware", # Authentication added
+    #'core.middleware.LanguageMiddleware', # added
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -144,42 +147,31 @@ USE_L10N = True
 USE_TZ = True
 
 
-#class CategoryTranslationOptions(TranslationOptions):
-#    fields = ('name', 'slug')
-#
-#class ArticleTranslationOptions(TranslationOptions):
-#    fields = ('title',)
-#
-#translator = Translator()
-#translator.register(Category, CategoryTranslationOptions)
-#translator.register(Article, ArticleTranslationOptions)
+LANGUAGES = [
+    ('en', _('English')),    
+    ('pt', _('Portuguese')),    
+]
 
-gettext = lambda s: s
-LANGUAGES = (
-    ('en', gettext('English')),
-    ('pt', gettext('Portuguese')),
-    
-)
-
-
-#LANGUAGES = (
-#    ('en', _('English')),
-#    ('pt', _('Portuguese')),
-#    ('es', _('Spanish')),
-#)
-
-MODELTRANSLATION_LANGUAGES = ('en', 'pt', 'es')
-
-#LOCALE_PATHS = [
-#    os.path.join(BASE_DIR, "locale"),         
-#]
-
+PARLER_LANGUAGES = {
+    None : (
+        {'code': 'en',},        
+        {'code': 'pt',},
+       
+    ),
+    'default': {
+        'fallbacks': ['en'],
+        'hide_untranslated': False,
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
 
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -227,7 +219,8 @@ SOCIALACCOUNT_PROVIDERS = {
     },
      'facebook': {
         'METHOD': 'oauth2',  # Set to 'js_sdk' to use the Facebook connect SDK
-        #'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
+        # USE 'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',  SE USAR O LOCALE
+        'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
         'SCOPE': ['email', 'public_profile'],
         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
         'INIT_PARAMS': {'cookie': True},
@@ -258,7 +251,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 # ADICIONAR AS LINHAS DE BAIXO ASSIM QUE TIVER OS TEMPLATES
 
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = '/'
 
 ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
 
@@ -266,12 +259,20 @@ ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4' 
 
-# Django Resized configurantion
 
-#DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
-#DJANGORESIZED_DEFAULT_SCALE = 0.5
-#DJANGORESIZED_DEFAULT_QUALITY = 75
-#DJANGORESIZED_DEFAULT_KEEP_META = True
-#DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
-#DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
-#DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
+# DeepL API config
+DEEPL_API_KEY = str(os.getenv('DEEPL_API_KEY'))
+
+# Cache config using Redis
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://localhost:6379/1',  
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"  # Use o mesmo nome definido para o cache

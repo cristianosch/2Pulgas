@@ -12,7 +12,7 @@ sqlparse==0.4.4
 typing_extensions==4.9.0
 tzdata==2024.1
 urllib3==2.2.0
-modeltranslation
+
 django-resized-1.0.2
 
 Django==5.0.2
@@ -20,3 +20,10 @@ django-allauth==0.61.1
 django-crispy-forms==2.1
 django-extensions==3.2.3
 python-dotenv-1.0.1
+
+django-rosetta-0.10.0
+django_parler-2.3
+django-redis
+django-redis-sessions-0.6.2
+django-environ-0.11.2
+

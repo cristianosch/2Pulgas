@@ -9,21 +9,22 @@ from django.urls import reverse
 from .utils import get_quote
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from about_us.models import AboutUs
+from django.utils.translation import gettext as _
 
 
 def home(request):
     header_random = Article.objects.order_by('?')[:4]
-    post_latest = Article.objects.order_by('id')[:1]    
+    #post_latest = Article.objects.all().order_by('-created_date')
+    post_latest = Article.objects.order_by('-id')[:1]    
     post_random = Article.objects.order_by('?')[:2]
     list_post = Article.objects.all()
-    
-    category = Category.objects.all()
-    article = Article.objects.all()
+      
+    category = Category.objects.all()    
     text = AboutUs.objects.all()
 
     quote = get_quote()
 
-    paginator = Paginator(list_post, 2)
+    paginator = Paginator(list_post, 6)
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -40,8 +41,7 @@ def home(request):
     context = {
         'header_random': header_random,
         'post_latest': post_latest,
-        'category': category,
-        'article': article, 
+        'category': category,        
         'post_random': post_random,
         'list_post': list_post,
         'quote' : quote,        
@@ -97,6 +97,7 @@ def post_detail(request, id, slug):
     category = Category.objects.all()
     post = Post.objects.filter(article_id=id)      
     list_post = Article.objects.order_by('id')[:3]
+    text = AboutUs.objects.all()
 
     comments = Comment.objects.filter(article_id=id, status='Approved')
     total = comments.count()
@@ -104,6 +105,7 @@ def post_detail(request, id, slug):
     comment_form = CommentForm()  # Create a new instance of the form
 
     reply_form = ReplyForm()
+
 
     context = {
         'article': article,      
@@ -114,6 +116,7 @@ def post_detail(request, id, slug):
         'total': total,
         'comment_form': comment_form,
         'reply_form': reply_form,
+        'text': text,
     }
     return render(request, 'blog/post_detail.html', context)
 

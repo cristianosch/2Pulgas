@@ -16,10 +16,19 @@ def get_sentinel_user():
     return get_user_model().objects.get_or_create(username='deleted')[0]
 
 
+
 class Category(models.Model):
     name = models.CharField(max_length=50, null=False, unique=True)
     slug = models.SlugField(unique=True, null=False)
     created_at = models.DateField(auto_now=True)    
+
+    def __str__(self):
+        return self.name    
+    
+    class Meta:
+        verbose_name = ("category")
+        verbose_name_plural = ("categories")
+
 
     def __str__(self):
         return self.name     
@@ -32,9 +41,9 @@ STATUS_CHOICES = (
 
 class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="article", null=False, blank=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.SET(get_sentinel_user),)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), verbose_name=_('User'))
     title = models.CharField(max_length=200, blank=False, null=False)
-    slug = models.SlugField(unique=True, null=False)
+    slug = models.SlugField(unique=True, null=False, blank=True)
     image = ResizedImageField(size=[900, 400], force_format='PNG', upload_to='media/article', blank=True, null=True)
     content = HTMLField(blank=True)        
     created_date = models.DateTimeField(default=timezone.now, null=True)
@@ -50,8 +59,7 @@ class Article(models.Model):
         return self.title
 
 
-class Post(models.Model):
-    #post_id = models.CharField(max_length=100, unique=True, blank=True)
+class Post(models.Model):   
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='posts', null=True, blank=True)    
     title = models.CharField(max_length=200, null=True, blank=True)    
@@ -60,7 +68,7 @@ class Post(models.Model):
     image = ResizedImageField(size=[900, 400], force_format='PNG', upload_to='media/post', blank=True, null=True)        
     video = models.FileField(upload_to = 'media/videos', verbose_name="Upload Video", blank=True, null=True)
     link_video = EmbedVideoField(null=True, blank=True, verbose_name = "Link Video")    
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.SET(get_sentinel_user),)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), verbose_name=_('User'))
     created_date = models.DateTimeField(default=timezone.now, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft') 
     
@@ -86,7 +94,7 @@ class Comment(models.Model):
         ('Not approved', 'Not approved'),
     )
     article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True, blank=True, related_name='comments')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), verbose_name=_('User'))
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS, max_length=20, default="Not approved")
@@ -101,9 +109,13 @@ class Comment(models.Model):
 
 class Reply(models.Model):
     reply_content = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replies', null=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True, default=User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), verbose_name=_('User'))
     reply_text = models.TextField(max_length=500, null=True)        
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return "'{}' replied with '{}' to '{}'".format(self.user ,self.reply_text, self.reply_content)
+    
+    class Meta:
+        verbose_name = _("reply")
+        verbose_name_plural = _("replies")
