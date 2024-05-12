@@ -263,7 +263,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # DeepL API config
 DEEPL_API_KEY = str(os.getenv('DEEPL_API_KEY'))
-
+'''
 # Cache config using Redis
 CACHES = {
     'default': {
@@ -277,3 +277,4 @@ CACHES = {
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"  # Use o mesmo nome definido para o cache
+'''
