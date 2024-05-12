@@ -7,7 +7,7 @@ from  embed_video.fields import EmbedVideoField
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.conf import settings
-from django.utils.translation import gettext as _
+#from django.utils.translation import gettext as _
 from django_resized import ResizedImageField
 from django.template.defaultfilters import slugify
 
@@ -41,7 +41,7 @@ STATUS_CHOICES = (
 
 class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="article", null=False, blank=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), verbose_name=_('User'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), verbose_name=('User'))
     title = models.CharField(max_length=200, blank=False, null=False)
     slug = models.SlugField(unique=True, null=False, blank=True)
     image = ResizedImageField(size=[900, 400], force_format='PNG', upload_to='media/article', blank=True, null=True)
@@ -68,7 +68,7 @@ class Post(models.Model):
     image = ResizedImageField(size=[900, 400], force_format='PNG', upload_to='media/post', blank=True, null=True)        
     video = models.FileField(upload_to = 'media/videos', verbose_name="Upload Video", blank=True, null=True)
     link_video = EmbedVideoField(null=True, blank=True, verbose_name = "Link Video")    
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), verbose_name=_('User'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), verbose_name=('User'))
     created_date = models.DateTimeField(default=timezone.now, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft') 
     
@@ -94,7 +94,7 @@ class Comment(models.Model):
         ('Not approved', 'Not approved'),
     )
     article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True, blank=True, related_name='comments')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), verbose_name=_('User'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), verbose_name=('User'))
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(choices=STATUS, max_length=20, default="Not approved")
@@ -109,7 +109,7 @@ class Comment(models.Model):
 
 class Reply(models.Model):
     reply_content = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replies', null=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), verbose_name=_('User'))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), verbose_name=('User'))
     reply_text = models.TextField(max_length=500, null=True)        
     created_at = models.DateTimeField(auto_now_add=True)
     
@@ -117,5 +117,5 @@ class Reply(models.Model):
         return "'{}' replied with '{}' to '{}'".format(self.user ,self.reply_text, self.reply_content)
     
     class Meta:
-        verbose_name = _("reply")
-        verbose_name_plural = _("replies")
+        verbose_name = ("reply")
+        verbose_name_plural = ("replies")

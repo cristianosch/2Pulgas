@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'about_us',
     'users',
     
+    #'admin_honeypot',
     'django_extensions',
     'django.contrib.sites',
     'allauth',

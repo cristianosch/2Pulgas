@@ -22,7 +22,11 @@ from django.conf.urls.i18n import i18n_patterns
 
 
 urlpatterns = i18n_patterns(
-    path('admin/', admin.site.urls),
+    # ADMIN PAGE HoneyPot
+    #path(r'^admin/', include('admin_honeypot.urls')),
+    # Our actual admin page
+    path('mydash/', admin.site.urls),
+
     path('accounts/', include('allauth.urls')),    
     path('', include('blog.urls')),      
     path('', include('about_us.urls')),
