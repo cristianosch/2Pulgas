@@ -8,8 +8,9 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
+<div class"container">
 
-  <div class="text-center">
+  <div class="text-center m-3">
     <h1>{% trans "Sign In" %}</h1>
 
     {% get_providers as socialaccount_providers %}
@@ -36,7 +37,7 @@
     <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
     {% endif %}
   </div>
-  <div class="row">
+  <div class="row m-5">
     <div class="col-md-6 offset-md-3">
       <form class="login" method="POST" action="{% url 'account_login' %}">
           {% csrf_token %}
@@ -51,4 +52,5 @@
         </form>
     </div>
   </div>
+  
 {% endblock %}

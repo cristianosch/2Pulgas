@@ -1,9 +1,12 @@
 import os
 import requests
-from core.settings import RAPIDAPI_KEY
+from django.conf import settings
 import random
+from dotenv import load_dotenv
 
-RAPIDAPI_KEY = os.getenv('RAPIDAPI_KEY')
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+RAPIDAPI_KEY = str(os.getenv('RAPIDAPI_KEY'))
 
 
 

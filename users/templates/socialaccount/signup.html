@@ -1,5 +1,5 @@
 
-{% extends "socialaccount/base.html" %}
+{% extends "account/base.html" %}
 
 {% load i18n %}
 {% load crispy_forms_filters %}
@@ -7,6 +7,7 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
+<div class="container">
 <div class="text-center">
     <h1>{% trans "Sign Up" %}</h1>
 
@@ -26,5 +27,6 @@
             </div>
         </form>
     </div>
+</div>
 </div>
 {% endblock %}

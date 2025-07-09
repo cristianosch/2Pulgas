@@ -1,0 +1,7 @@
+{% load i18n %}{% blocktrans %}Olá {{ user.username }},
+Por favor, clique no link abaixo para verificar seu endereço de e-mail:
+
+{{ activate_url }}
+
+Obrigado!
+{% endblocktrans %}

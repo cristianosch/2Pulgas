@@ -249,7 +249,7 @@
         {% for item in category %}
 
         <li class="border-bottom pb-3">
-          <a href="{% url 'post_list' id=item.id slug=item.slug %}" class="text-muted">{{ item.name }}</a
+          <a href="{% url 'article_list' slug=item.slug %}" class="text-muted">{{ item.name }}</a
           ><span class="f-13 float-end text-muted"></span>
         </li>
 

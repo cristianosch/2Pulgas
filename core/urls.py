@@ -30,5 +30,6 @@ urlpatterns = i18n_patterns(
     path('accounts/', include('allauth.urls')),    
     path('', include('blog.urls')),      
     path('', include('about_us.urls')),
+    path("cookies/", include("cookie_consent.urls")),
 )+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

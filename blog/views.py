@@ -10,6 +10,8 @@ from .utils import get_quote
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from about_us.models import AboutUs
 from django.utils.translation import gettext as _
+from django.views.generic import ListView
+from django.http import HttpResponseNotFound
 
 
 def home(request):
@@ -20,11 +22,12 @@ def home(request):
     list_post = Article.objects.all()
       
     category = Category.objects.all()    
+    
     text = AboutUs.objects.all()
 
     quote = get_quote()
 
-    paginator = Paginator(list_post, 6)
+    paginator = Paginator(list_post, 5)
 
     try:
         page = int(request.GET.get('page', '1'))
@@ -45,7 +48,7 @@ def home(request):
         'post_random': post_random,
         'list_post': list_post,
         'quote' : quote,        
-        'text' : text,
+        'text' : text,        
     }
         
     return render(request, 'blog/index.html', context)
@@ -121,33 +124,28 @@ def post_detail(request, id, slug):
     return render(request, 'blog/post_detail.html', context)
 
 
+def page_not_found(request, *args, **kwargs):
+    return HttpResponseNotFound('<h1>Página não encontrada</h1>')
 
-def page_not_found(request):
-    return render(request, 'base/404.html', status=404)
+
+def privacy_policy(request):
+    return render(request, 'cookie_consent/privacy_policy.html')
 
 
-def post_list(request, id, slug):    
-    category = Category.objects.filter(pk=id)
-    #categories = Category.objects.filter(slug=slug)
-    list_post = Article.objects.all()
-    paginator = Paginator(list_post, 2)
+class ArticleListView(ListView):           
+    model = Article
+    paginate_by = 8
+    category = Category.objects.all()
+    #template_name = 'article_list.html'
+    #ordering = ['-created_date']
+    
+    def get_queryset(self):
+        self.category = Category.objects.get(slug=self.kwargs['slug'])
+        return Article.objects.filter(category=self.category)
 
-    try:
-        page = int(request.GET.get('page', '1'))
-    except ValueError:
-        page = 1
-
-    # Se o page request (9999) está fora da lista, mostre a última página.
-    try:
-        list_post = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-        list_post = paginator.page(paginator.num_pages)
-
-    context = {
-        'category': category,
-        'list_post': list_post,
-        #'categories': categories,
-        #'post': post,
-    }    
-    return render(request, 'blog/post_list.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.category    
+        return context
+    
 

@@ -22,8 +22,6 @@ class Category(models.Model):
     slug = models.SlugField(unique=True, null=False)
     created_at = models.DateField(auto_now=True)    
 
-    def __str__(self):
-        return self.name    
     
     class Meta:
         verbose_name = ("category")
@@ -31,7 +29,7 @@ class Category(models.Model):
 
 
     def __str__(self):
-        return self.name     
+        return self.name 
   
     
 STATUS_CHOICES = (
@@ -56,7 +54,7 @@ class Article(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        return (self.title, self.user)
 
 
 class Post(models.Model):   
@@ -103,7 +101,7 @@ class Comment(models.Model):
         return f"{self.user.username} - {self.article.title if self.article else 'No Article'}"
     
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['-created_at']  
 
    
 

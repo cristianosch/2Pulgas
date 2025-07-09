@@ -10,8 +10,8 @@ def about_us(request):
         'text':text,
         'quote': quote,
     }
-    return render(request, 'about.html', context)
+    return render(request, 'about_us/about.html', context)
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    return render(request, 'about_us/contact.html')

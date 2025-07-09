@@ -74,3 +74,25 @@ __________________
 
 Como adicionar link de compartilhamento
 https://ayltoninacio.com.br/blog/botoes-share-redes-sociais-html-puro
+
+
+SOBRE TRADUÇÕES OLHAR 
+
+https://www.youtube.com/watch?v=idtmvyM1OVA
+
+https://github.com/mom1/django-tof/blob/master/tof/admin.py
+
+https://www.youtube.com/watch?v=RWvn-IgRUv0&t=11s
+
+
+CREATE YOUR OWN COOKIES CONSENT 
+
+https://www.youtube.com/watch?v=-HgdzYCi2nI&t=20s
+
+
+DJANGO DOCS 
+
+https://django-cookie-consent.readthedocs.io/en/latest/
+
+
+
